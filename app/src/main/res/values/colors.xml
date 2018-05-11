@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="status_bar_color_t">#f0373d</color>
+    <color name="list_item_pressed">#e6e6e6</color>
+    <color name="tab_huang_color">#fc8e00</color>
+
+    <color name="text_des_hint">#737373</color>
+    <color name="main_text_label">#b1b1b1</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="status_bar_color">#f0373d</color>
+
+    <color name="list_pressed_bg">#f0f0f0</color>
+
+    <color name="detail_text_color">#555555</color>
+
+    <color name="color_blue">#2454c1</color>
+
+    <color name="color_yellow">#fcffc8</color>
+
+    <color name="color_Pink">#ffdec8</color>
+
+    <color name="titile_name_color">#576b95</color>
+    <color name="titile_adress_color">#576b95</color>
+    <color name="titile_line_color">#e6e6e6</color>
+    <color name="titile_red_color">#f0373d</color>
+    <color name="titile_pare_color">#f3f3f3</color>
+    <color name="titile_yellow_color">#db9000</color>
+    <color name="titile_green_color">#31975a</color>
+    <color name="titile_blue_color">#2454c1</color>
+    <color name="titile_time_color">#808080</color>
+
+
+</resources>
