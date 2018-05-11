@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">像素格子Android</string>
+    <string name="app_name">宝马i version</string>
 
     <string name="simple_view_behavior">app.weather.com.textndk.ui.SimpleViewBehavior</string>
     <string name="translate_up_down_behavior">app.weather.com.textndk.ui.TranslateUpDownBehavior</string>

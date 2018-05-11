@@ -31,7 +31,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:contentScrim="@color/colorPrimary"
+            app:contentScrim="@color/white"
             app:expandedTitleMarginStart="100dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:statusBarScrim="@android:color/transparent"
@@ -59,7 +59,7 @@
             android:id="@+id/tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/white"
             app:tabMode="scrollable"
             app:tabTextAppearance="@style/TabLayoutTextStyle"/>
     </android.support.design.widget.AppBarLayout>
