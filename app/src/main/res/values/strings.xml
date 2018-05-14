@@ -3,4 +3,66 @@
 
     <string name="simple_view_behavior">app.weather.com.textndk.ui.SimpleViewBehavior</string>
     <string name="translate_up_down_behavior">app.weather.com.textndk.ui.TranslateUpDownBehavior</string>
+
+    <!--主界面底部-->
+    <string name="tab_mian_yjzx">图们资讯</string>
+    <string name="tab_mian_dyjy">党员教育</string>
+    <string name="tab_mian_sqfw">社区服务</string>
+    <string name="tab_mian_bmfw">便民服务</string>
+    <string name="tab_mian_axzy">爱心志愿</string>
+    <string name="tab_mian_jypx">教育培训</string>
+    <string name="tab_mian_xy">微心愿</string>
+    <string name="tab_mian_djyw">党建要闻</string>
+    <string name="tab_mian_yjdt">延吉动态</string>
+    <string name="tab_mian_sqfc">社区风采</string>
+    <string name="tab_mian_djwb">党建微博</string>.
+
+    <string name="tab_mian_lxyz">两学一做</string>
+    <string name="tab_mian_llxx">理论学习</string>
+    <string name="report_success">上报成功</string>
+    <string name="titile_btbnwk">标题不能为空</string>
+    <string name="fb_success">发布成功</string>
+    <string name="titile_dhbnwk">电话不能为空</string>
+    <string name="titile_msbnwk">描述不能为空</string>
+    <string name="titile_wxysl">微心愿受理</string>
+    <string name="titile_slwc">受理完成</string>
+
+    <string name="titile_new_wqzx">图们资讯</string>
+    <string name="titile_new_djyw">党建要闻</string>
+    <string name="titile_new_msfw">民生服务</string>
+    <string name="titile_new_kpzs">科普知识</string>
+    <string name="titile_new_fzpzs">防诈骗知识</string>
+    <string name="titile_new_jkzs">健康知识</string>
+    <string name="titile_new_yjyj">应急预警</string>
+    <string name="titile_new_xfzs">消防知识</string>
+    <string name="titile_new_jypx">教育培训</string>
+    <string name="titile_new_djsp">党教视频</string>
+    <string name="titile_new_dsdg">党章党规</string>
+    <string name="titile_new_dszs">党史知识</string>
+    <string name="titile_new_ldjn">劳动技能</string>
+    <string name="titile_new_dszb">电视直播</string>
+    <string name="title_video_play">视频播放</string>
+    <string name="title_new_wgxs">网格巡视</string>
+    <string name="title_new_qzsq">群众诉求</string>
+    <string name="title_new_zwbm">政务便民</string>
+    <string name="title_new_sqqk">社区情况</string>
+    <string name="title_new_wxy">微心愿</string>
+
+
+    <string name="title_xsrw">巡视任务</string>
+    <string name="title_bj">办结</string>
+    <string name="title_tztg">通知通告</string>
+    <string name="title_sy">通知通告</string>
+    <string name="title_tzxq">通知详情</string>
+    <string name="title_ckfj">查看附件</string>
+    <string name="title_fwxxxq">房屋信息详情</string>
+    <string name="title_tjsq">添加诉求</string>
+    <string name="title_sqxx">诉求信息</string>
+    <string name="title_cjfwxx">创建房屋信息</string>
+    <string name="title_cylb">成员列表</string>
+
+    <string name="title_bwm">BWM</string>
+    <string name="title_benz">Benz</string>
+    <string name="title_audi">Audi</string>
+    <string name="title_mch">M Car</string>
 </resources>

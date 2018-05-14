@@ -1,28 +1,27 @@
-package app.weather.com.textndk;
+package app.weather.com.textndk.view;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.generic.RoundingParams;
@@ -33,17 +32,18 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.weather.com.textndk.R;
 import app.weather.com.textndk.banner.Banner;
 import app.weather.com.textndk.banner.BannerAdapter;
 import app.weather.com.textndk.banner.SmartViewPager;
 import app.weather.com.textndk.presenter.AdImageView;
 import app.weather.com.textndk.utils.ImageUtil;
 import app.weather.com.textndk.utils.ScreenUtil;
-import app.weather.com.textndk.view.AppBarStateChangeListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity {
+public class BWMMainFragment extends Fragment {
 
     @BindView(R.id.appbarlayout)
     AppBarLayout appbarlayout;
@@ -55,30 +55,27 @@ public class MainActivity extends AppCompatActivity {
     SmartViewPager banner;
     @BindView(R.id.ly_banner)
     LinearLayout lyBanner;
+    @BindView(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    Unbinder unbinder;
 
     private LiveBannerAdapter adapter;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_main_bg, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        mRecyclerView = view.findViewById(R.id.id_recyclerview);
+        return view;
+    }
 
-        }
 
-        Fresco.initialize(this);
-        setContentView(R.layout.activity_main_bg);
-
-        ButterKnife.bind(this);
-
-        setSupportActionBar(toolbarMain);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mRecyclerView = findViewById(R.id.id_recyclerview);
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         List<String> mockDatas = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             mockDatas.add(i + "");
@@ -111,17 +108,17 @@ public class MainActivity extends AppCompatActivity {
         //提示点的位置
         banner.setIndicatorGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
         //提示点选中的状态颜色
-        banner.setIndicatorColor(ContextCompat.getColor(this, R.color.white),
-                ContextCompat.getColor(this, R.color.pink));
-        int height = this.getResources().getDimensionPixelSize(R.dimen.top_banner_height);
+        banner.setIndicatorColor(ContextCompat.getColor(getActivity(), R.color.white),
+                ContextCompat.getColor(getActivity(), R.color.pink));
+        int height = getActivity().getResources().getDimensionPixelSize(R.dimen.top_banner_height);
         ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
         banner.setLayoutParams(params);
-        adapter = new LiveBannerAdapter(this);
+        adapter = new LiveBannerAdapter(getActivity());
         //赋值图片展示
         setBannerData(banners);
 
         //使用CollapsingToolbarLayout必须把title设置到CollapsingToolbarLayout上，设置到Toolbar上则不会显示
-        final CollapsingToolbarLayout mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
+        final CollapsingToolbarLayout mCollapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar_layout);
         mCollapsingToolbarLayout.setTitle("宝马时尚中国");
         //通过CollapsingToolbarLayout修改字体颜色
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);//设置还没收缩时状态下字体颜色
@@ -145,12 +142,12 @@ public class MainActivity extends AppCompatActivity {
                     //展开状态
                     lyTitle.setVisibility(View.GONE);
 //                    lyBanner.setAlpha(1f);
-                    changeTAlpha();
+//                    changeTAlpha();
 //                    lyBanner.setVisibility(View.VISIBLE);
                 } else if (state == State.COLLAPSED) {
 //                    mCollapsingToolbarLayout.setExpandedTitleColor(Color.BLACK);
                     //折叠状态
-                    changeAlpha();
+//                    changeAlpha();
                     lyTitle.setVisibility(View.VISIBLE);
 //                    lyBanner.setAlpha(0f);
 //                    lyBanner.setVisibility(View.GONE);
@@ -172,9 +169,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mRecyclerView.setLayoutManager(mLinearLayoutManager = new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(mLinearLayoutManager = new LinearLayoutManager(getActivity()));
 
-        mRecyclerView.setAdapter(new CommonAdapter<String>(MainActivity.this, R.layout.item, mockDatas) {
+        mRecyclerView.setAdapter(new CommonAdapter<String>(getActivity(), R.layout.item, mockDatas) {
             @Override
             protected void convert(ViewHolder holder, String o, int position) {
 
@@ -210,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+ 
 
     private void setBannerData(List<Banner> data) {
         adapter.setData(data, true);
@@ -220,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeAlpha() {
 
-        Animation alphaAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.alpha);
+        Animation alphaAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.alpha);
         lyBanner.startAnimation(alphaAnimation);//开始动画
         alphaAnimation.setFillAfter(false);//动画结束后保持状态
         //添加动画监听
@@ -249,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
     public void changeTAlpha() {
 
         lyBanner.setVisibility(View.VISIBLE);
-        Animation alphaAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.talpha);
+        Animation alphaAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.talpha);
         lyBanner.startAnimation(alphaAnimation);//开始动画
         alphaAnimation.setFillAfter(false);//动画结束后保持状态
         //添加动画监听
@@ -298,6 +295,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 
 
     static class LiveBannerAdapter extends BannerAdapter<Banner, SimpleDraweeView> {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!--
+  ~
+  ~ Copyright (C) Jilin Daren Technology ., Ltd @2014 - All Rights Reserved
+  ~                  Unauthorized copying of this file, via any medium is strictly prohibited
+  ~                  Proprietary and confidential
+  ~                                http://www.jldaren.com/
+  ~
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:color="@color/status_bar_color_t"/>
+    <item android:color="#808080"/> <!-- not selected -->
+</selector>

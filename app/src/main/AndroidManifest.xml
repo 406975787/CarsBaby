@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/icon_v"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Main">
-        <activity android:name=".MainActivity">
+        <activity android:name=".FragmentMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
