@@ -145,6 +145,7 @@ public class FragmentMainActivity extends AppCompatActivity implements TabHost.O
             imageView.setImageResource(iconRes);
         }
         TextView textView = (TextView) view.findViewById(R.id.textview);//设置textview背景样式
+        textView.setVisibility(View.GONE);
         textView.setText(stringId);
         return view;
     }
