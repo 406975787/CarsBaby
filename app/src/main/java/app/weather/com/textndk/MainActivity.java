@@ -40,20 +40,20 @@ import app.weather.com.textndk.presenter.AdImageView;
 import app.weather.com.textndk.utils.ImageUtil;
 import app.weather.com.textndk.utils.ScreenUtil;
 import app.weather.com.textndk.view.AppBarStateChangeListener;
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.appbarlayout)
+    @Bind(R.id.appbarlayout)
     AppBarLayout appbarlayout;
-    @BindView(R.id.toolbar_main)
+    @Bind(R.id.toolbar_main)
     Toolbar toolbarMain;
-    @BindView(R.id.ly_title)
+    @Bind(R.id.ly_title)
     LinearLayout lyTitle;
-    @BindView(R.id.banner)
+    @Bind(R.id.banner)
     SmartViewPager banner;
-    @BindView(R.id.ly_banner)
+    @Bind(R.id.ly_banner)
     LinearLayout lyBanner;
 
     private LiveBannerAdapter adapter;

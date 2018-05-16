@@ -9,8 +9,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,12 +33,17 @@ import android.widget.LinearLayout;
 
 import com.daren.common.util.Logger;
 import com.daren.common.widget.WaitDialog;
+import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import app.weather.com.textndk.R;
-import butterknife.BindView;
+import app.weather.com.textndk.presenter.AdImageView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by mengxj on 2018/5/14.
@@ -43,27 +51,31 @@ import butterknife.Unbinder;
 
 public class BeazMainFragment extends Fragment {
 
-    @BindView(R.id.webview)
-    WebView mWebView;
-    Unbinder unbinder;
-    WaitDialog mWaitDialog = null;
-    @BindView(R.id.header_img)
+    @Bind(R.id.header_img)
     ImageView headerImg;
-    @BindView(R.id.img_left)
+    @Bind(R.id.img_left)
     ImageView imgLeft;
-    @BindView(R.id.img_right)
+    @Bind(R.id.img_right)
     ImageView imgRight;
-    @BindView(R.id.collapsing_toolbar_layout)
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    @BindView(R.id.appbarlayout)
-    AppBarLayout appbarlayout;
-    @BindView(R.id.ly_title)
+    @Bind(R.id.ly_title)
     LinearLayout lyTitle;
-    @BindView(R.id.id_recyclerview)
+    @Bind(R.id.toolbar_main)
+    Toolbar toolbarMain;
+    @Bind(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    @Bind(R.id.appbarlayout)
+    AppBarLayout appbarlayout;
+    @Bind(R.id.id_recyclerview)
     RecyclerView idRecyclerview;
+    @Bind(R.id.webview)
+    WebView mWebView;
+    @Bind(R.id.layout)
+    CoordinatorLayout layout;
     private int selectCode;
     private int index = 0;
-
+    private WaitDialog mWaitDialog;
+    private LinearLayoutManager mLinearLayoutManager;
+    private RecyclerView mRecyclerView;
     // 图片
     @DrawableRes
     private int mImages[] = {
@@ -76,7 +88,8 @@ public class BeazMainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.webview_common_activity, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
+        mRecyclerView = view.findViewById(R.id.id_recyclerview);
         return view;
     }
 
@@ -92,6 +105,12 @@ public class BeazMainFragment extends Fragment {
 
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mWebView.setInitialScale(0);
+
+
+        List<String> mockDatas = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            mockDatas.add(i + "");
+        }
 
         WebSettings settings = mWebView.getSettings();
 
@@ -224,12 +243,49 @@ public class BeazMainFragment extends Fragment {
         });
 
 
+        mRecyclerView.setLayoutManager(mLinearLayoutManager = new LinearLayoutManager(getActivity()));
+
+        mRecyclerView.setAdapter(new CommonAdapter<String>(getActivity(), R.layout.item, mockDatas) {
+            @Override
+            protected void convert(ViewHolder holder, String o, int position) {
+
+                if (position > 0 && position % 7 == 0) {
+                    holder.setVisible(R.id.id_tv_title, false);
+                    holder.setVisible(R.id.id_tv_desc, false);
+                    holder.setVisible(R.id.id_iv_ad, true);
+
+                } else {
+                    holder.setVisible(R.id.id_tv_title, true);
+                    holder.setVisible(R.id.id_tv_desc, true);
+                    holder.setVisible(R.id.id_iv_ad, false);
+
+                }
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int fPos = mLinearLayoutManager.findFirstVisibleItemPosition();
+                int lPos = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
+                for (int i = fPos; i <= lPos; i++) {
+                    View view = mLinearLayoutManager.findViewByPosition(i);
+                    AdImageView adImageView = view.findViewById(R.id.id_iv_ad);
+                    if (adImageView.getVisibility() == View.VISIBLE) {
+                        adImageView.setDx(mLinearLayoutManager.getHeight() - view.getTop());
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        ButterKnife.unbind(this);
     }
 
     @OnClick({R.id.img_left, R.id.img_right})

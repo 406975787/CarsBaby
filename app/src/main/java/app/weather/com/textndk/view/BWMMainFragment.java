@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,8 +27,6 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.zhy.adapter.recyclerview.CommonAdapter;
-import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,29 +35,38 @@ import app.weather.com.textndk.R;
 import app.weather.com.textndk.banner.Banner;
 import app.weather.com.textndk.banner.BannerAdapter;
 import app.weather.com.textndk.banner.SmartViewPager;
-import app.weather.com.textndk.presenter.AdImageView;
 import app.weather.com.textndk.utils.ImageUtil;
 import app.weather.com.textndk.utils.ScreenUtil;
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class BWMMainFragment extends Fragment {
 
-    @BindView(R.id.appbarlayout)
-    AppBarLayout appbarlayout;
-    @BindView(R.id.toolbar_main)
-    Toolbar toolbarMain;
-    @BindView(R.id.ly_title)
-    LinearLayout lyTitle;
-    @BindView(R.id.banner)
-    SmartViewPager banner;
-    @BindView(R.id.ly_banner)
-    LinearLayout lyBanner;
-    @BindView(R.id.collapsing_toolbar_layout)
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    Unbinder unbinder;
 
+    @Bind(R.id.ly_title)
+    LinearLayout lyTitle;
+    @Bind(R.id.toolbar_main)
+    Toolbar toolbarMain;
+    @Bind(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    @Bind(R.id.baomagainian)
+    ImageView baomagainian;
+    @Bind(R.id.baoma5xi)
+    ImageView baoma5xi;
+    @Bind(R.id.baomam5)
+    ImageView baomam5;
+    @Bind(R.id.baomax2)
+    ImageView baomax2;
+    @Bind(R.id.banner)
+    SmartViewPager banner;
+    @Bind(R.id.ly_banner)
+    LinearLayout lyBanner;
+    @Bind(R.id.appbarlayout)
+    AppBarLayout appbarlayout;
+    @Bind(R.id.id_recyclerview)
+    RecyclerView idRecyclerview;
+    @Bind(R.id.layout)
+    CoordinatorLayout layout;
     private LiveBannerAdapter adapter;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
@@ -67,8 +75,8 @@ public class BWMMainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main_bg, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        mRecyclerView = view.findViewById(R.id.id_recyclerview);
+        ButterKnife.bind(this, view);
+//        mRecyclerView = view.findViewById(R.id.id_recyclerview);
         return view;
     }
 
@@ -164,50 +172,49 @@ public class BWMMainFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                MoveToPosition((LinearLayoutManager) mRecyclerView.getLayoutManager(), mRecyclerView, 0);
+//                MoveToPosition((LinearLayoutManager) mRecyclerView.getLayoutManager(), mRecyclerView, 0);
             }
         });
 
 
-        mRecyclerView.setLayoutManager(mLinearLayoutManager = new LinearLayoutManager(getActivity()));
-
-        mRecyclerView.setAdapter(new CommonAdapter<String>(getActivity(), R.layout.item, mockDatas) {
-            @Override
-            protected void convert(ViewHolder holder, String o, int position) {
-
-                if (position > 0 && position % 7 == 0) {
-                    holder.setVisible(R.id.id_tv_title, false);
-                    holder.setVisible(R.id.id_tv_desc, false);
-                    holder.setVisible(R.id.id_iv_ad, true);
-
-                } else {
-                    holder.setVisible(R.id.id_tv_title, true);
-                    holder.setVisible(R.id.id_tv_desc, true);
-                    holder.setVisible(R.id.id_iv_ad, false);
-
-                }
-            }
-        });
-
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                int fPos = mLinearLayoutManager.findFirstVisibleItemPosition();
-                int lPos = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
-                for (int i = fPos; i <= lPos; i++) {
-                    View view = mLinearLayoutManager.findViewByPosition(i);
-                    AdImageView adImageView = view.findViewById(R.id.id_iv_ad);
-                    if (adImageView.getVisibility() == View.VISIBLE) {
-                        adImageView.setDx(mLinearLayoutManager.getHeight() - view.getTop());
-                    }
-                }
-            }
-        });
+//        mRecyclerView.setLayoutManager(mLinearLayoutManager = new LinearLayoutManager(getActivity()));
+//
+//        mRecyclerView.setAdapter(new CommonAdapter<String>(getActivity(), R.layout.item, mockDatas) {
+//            @Override
+//            protected void convert(ViewHolder holder, String o, int position) {
+//
+//                if (position > 0 && position % 7 == 0) {
+//                    holder.setVisible(R.id.id_tv_title, false);
+//                    holder.setVisible(R.id.id_tv_desc, false);
+//                    holder.setVisible(R.id.id_iv_ad, true);
+//
+//                } else {
+//                    holder.setVisible(R.id.id_tv_title, true);
+//                    holder.setVisible(R.id.id_tv_desc, true);
+//                    holder.setVisible(R.id.id_iv_ad, false);
+//
+//                }
+//            }
+//        });
+//
+//        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//
+//                int fPos = mLinearLayoutManager.findFirstVisibleItemPosition();
+//                int lPos = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
+//                for (int i = fPos; i <= lPos; i++) {
+//                    View view = mLinearLayoutManager.findViewByPosition(i);
+//                    AdImageView adImageView = view.findViewById(R.id.id_iv_ad);
+//                    if (adImageView.getVisibility() == View.VISIBLE) {
+//                        adImageView.setDx(mLinearLayoutManager.getHeight() - view.getTop());
+//                    }
+//                }
+//            }
+//        });
     }
 
- 
 
     private void setBannerData(List<Banner> data) {
         adapter.setData(data, true);
@@ -298,7 +305,7 @@ public class BWMMainFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        ButterKnife.unbind(this);
     }
 
 

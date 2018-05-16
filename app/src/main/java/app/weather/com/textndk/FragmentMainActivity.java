@@ -7,6 +7,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -23,29 +24,29 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import app.weather.com.textndk.view.AppBarStateChangeListener;
 import app.weather.com.textndk.view.BWMMainFragment;
 import app.weather.com.textndk.view.BeazMainFragment;
+import app.weather.com.textndk.view.CarsVideoListFragment;
 import app.weather.com.textndk.view.aaFragment;
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class FragmentMainActivity extends AppCompatActivity implements TabHost.OnTabChangeListener {
 
 
-    @BindView(R.id.realtabcontent)
+    @Bind(R.id.realtabcontent)
     FrameLayout realtabcontent;
-    @BindView(R.id.collapsing_toolbar_layout)
+    @Bind(R.id.collapsing_toolbar_layout)
     CollapsingToolbarLayout collapsingToolbarLayout;
-    @BindView(R.id.appbarlayout)
+    @Bind(R.id.appbarlayout)
     AppBarLayout appbarlayout;
-    @BindView(android.R.id.tabcontent)
+    @Bind(android.R.id.tabcontent)
     FrameLayout tabcontent;
-    @BindView(android.R.id.tabs)
+    @Bind(android.R.id.tabs)
     TabWidget tabs;
-    @BindView(android.R.id.tabhost)
+    @Bind(android.R.id.tabhost)
     NoDetachedTabFragmentHost mTabHost;
-    @BindView(R.id.layout)
+    @Bind(R.id.layout)
     CoordinatorLayout layout;
-
-
+    private RecyclerView mRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,7 @@ public class FragmentMainActivity extends AppCompatActivity implements TabHost.O
         setContentView(R.layout.activity_fragment_main_bg);
 
         ButterKnife.bind(this);
+
 
         mTabHost = (NoDetachedTabFragmentHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
@@ -117,7 +119,7 @@ public class FragmentMainActivity extends AppCompatActivity implements TabHost.O
         mTabHost.addTab(mTabHost.newTabSpec(getString(R.string.title_mch))
                         .setIndicator(getTabItemView(R.drawable.tab_koenigsegg_im,
                                 R.string.title_mch)),
-                aaFragment.class, null);
+                CarsVideoListFragment.class, null);
 
 
         Intent intent = getIntent();
@@ -145,7 +147,6 @@ public class FragmentMainActivity extends AppCompatActivity implements TabHost.O
             imageView.setImageResource(iconRes);
         }
         TextView textView = (TextView) view.findViewById(R.id.textview);//设置textview背景样式
-        textView.setVisibility(View.GONE);
         textView.setText(stringId);
         return view;
     }

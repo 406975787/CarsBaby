@@ -14,6 +14,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 
 import app.weather.com.textndk.banner.CustomBitmapMemoryCacheParamsSupplier;
 import app.weather.com.textndk.utils.Utils;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * Created by mengxj on 2018/5/11.
@@ -21,9 +22,9 @@ import app.weather.com.textndk.utils.Utils;
 
 public class App extends Application {
 
-
+    public JCVideoPlayerStandard VideoPlaying;
 //    private static AppComponent sAppComponent;
-    private static App sInstance;
+public static App sInstance;
     @Override
     public void onCreate() {
         super.onCreate();
